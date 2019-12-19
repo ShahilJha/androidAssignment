@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity"
+    android:background="@drawable/button_background">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/lytToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/darker_gray"
+            app:layout_scrollFlags="scroll|enterAlways"
+
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".LoginActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/login_img"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                />
+
+            <TextView
+                android:id="@+id/logInTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="250dp"
+                android:text="Log-in"
+                android:textAllCaps="true"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/userNameEditTxt"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/logInTxt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/text_corner_round"
+                android:gravity="center"
+                android:hint="Username"
+                android:inputType="text" />
+
+
+            <EditText
+                android:id="@+id/passwordEditTxt"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/userNameEditTxt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/text_corner_round"
+                android:gravity="center"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/logInBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/passwordEditTxt"
+                android:layout_marginLeft="90dp"
+                android:background="@drawable/button_background"
+                android:text="Log-In"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/signUpBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/passwordEditTxt"
+                android:layout_toRightOf="@+id/logInBtn"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/button_background"
+                android:text="Sign-up"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
