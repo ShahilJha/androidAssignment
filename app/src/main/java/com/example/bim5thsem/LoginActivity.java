@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.bim5thsem.home.DashboardActivity;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText userNameText;
@@ -88,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.logInBtn:
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, DashboardActivity.class);
                 intent.putExtra("name","Shahil");
                 startActivity(intent);
                 finish();
