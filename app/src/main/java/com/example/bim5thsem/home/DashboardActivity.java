@@ -20,9 +20,9 @@ public class DashboardActivity extends AppCompatActivity {
     private TabLayout tabLayout;
 
     private int[] tabIcons = {
-            R.drawable.,
-            R.drawable.,
-            R.drawable.
+            R.drawable.ic_category,
+            R.drawable.ic_main_dashboard,
+            R.drawable.ic_profile
     };
 
     @Override
