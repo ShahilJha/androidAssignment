@@ -53,6 +53,7 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.lytTab);
 
         setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
         setTabWithIcon();
     }
 
