@@ -243,7 +243,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                imgPhoto.setImageBitmap(bitmap);
+                imgPhoto.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 700, 1400, false));
             }
         } else if (requestCode == 200) {
             if (resultCode == RESULT_OK) {
