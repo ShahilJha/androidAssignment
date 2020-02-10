@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import io.realm.Realm;
+
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText userName, mailAddress, password, cPassword;
@@ -317,9 +319,17 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 else {
                     if (password.getText().toString().equals(cPassword.getText().toString())) {
-                        Intent intent = new Intent(this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        String email = mailAddress.getText().toString().trim();
+                        String username = userName.getText().toString().trim();
+                        String password = cPassword.getText().toString().trim();
+
+                        User user= new User();
+                        user.setEmail(email);
+                        user.setUsername(username);
+                        user.setPassword(password);
+                        saveSignupDb(user);
+
+                        transferToLogin();
                     } else {
                         Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
                     }
@@ -329,6 +339,32 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             default:
                 break;
         }
+    }
+
+    private void saveSignupDb(final User user) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Number currentIdNum = realm.where(User.class).max("id");
+                int nextId;
+                if(currentIdNum == null) {
+                    nextId = 1;
+                } else {
+                    nextId = currentIdNum.intValue() + 1;
+                }
+                user.setId(nextId);
+                //...
+                realm.insertOrUpdate(user);
+                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+            }
+        });
+    }
+
+    private void transferToLogin(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void selectImage() {
