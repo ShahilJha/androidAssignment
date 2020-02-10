@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
@@ -15,8 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.bim5thsem.home.DashboardActivity;
+
+import io.realm.Realm;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -90,19 +94,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.logInBtn:
-                Intent intent = new Intent(this, DashboardActivity.class);
-                intent.putExtra("name","Shahil");
-                startActivity(intent);
-                finish();
+                if (!TextUtils.isEmpty(userNameText.getText()) && !TextUtils.isEmpty(passwordText.getText())) {
+                    getDataDb(userNameText.getText().toString().trim(), passwordText.getText().toString().trim());
+                }
                 break;
             case R.id.signUpBtn:
-                Intent intent1 = new Intent(this, SignupActivity.class);
-                intent1.putExtra("name","Shahil");
-                startActivity(intent1);
-                finish();
+                transferToSignup();
                 break;
             default:
                 break;
         }
     }
+
+    private void transferToSignup(){
+        Intent intent1 = new Intent(this, SignupActivity.class);
+        intent1.putExtra("name","Shahil");
+        startActivity(intent1);
+        finish();
+    }
+
+    private void transferToDashboard(){
+        Intent intent = new Intent(this, DashboardActivity.class);
+        intent.putExtra("name","Shahil");
+        startActivity(intent);
+        finish();
+    }
+
+    private void getDataDb(String username, String password) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        User user = realm.where(User.class).equalTo("username", username).equalTo("password", password).findFirst();
+        if (user != null) {
+            Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
+            transferToDashboard();
+        }
+        else{
+            Toast.makeText(this, "Invalid email and password", Toast.LENGTH_SHORT).show();
+        }
+        realm.commitTransaction();
+    }
+
 }
