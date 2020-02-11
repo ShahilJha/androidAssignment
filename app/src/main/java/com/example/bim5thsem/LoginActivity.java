@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText passwordText;
     private Button logInBtn, signUpBtn;
     private Toolbar toolbar;
+    private int id;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
@@ -113,9 +114,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         finish();
     }
 
-    private void transferToDashboard(){
-        Intent intent = new Intent(this, DashboardActivity.class);
-        intent.putExtra("name","Shahil");
+
+    private void transferToHome(int i){
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("id",id);
         startActivity(intent);
         finish();
     }
@@ -126,7 +128,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         User user = realm.where(User.class).equalTo("username", username).equalTo("password", password).findFirst();
         if (user != null) {
             Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
-            transferToDashboard();
+            id = user.getId();
+            transferToHome(id);
         }
         else{
             Toast.makeText(this, "Invalid email and password", Toast.LENGTH_SHORT).show();
