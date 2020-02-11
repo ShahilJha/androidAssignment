@@ -63,7 +63,6 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateUser();
-                transferToHome(id);
             }
         });
 
@@ -98,12 +97,16 @@ public class EditProfileActivity extends AppCompatActivity {
         user.setEmail(eMail.getText().toString().trim());
         if (password.getText().toString().equals(cPassword.getText().toString())) {
             user.setPassword(password.getText().toString());
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(user);
+            realm.commitTransaction();
+            Toast.makeText(this, "User data updated successfully.", Toast.LENGTH_SHORT).show();
+            transferToHome(id);
         }
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(user);
-        realm.commitTransaction();
-        Toast.makeText(this, "User data updated successfully.", Toast.LENGTH_SHORT).show();
+        else{
+            Toast.makeText(this, "Passwords don't match.", Toast.LENGTH_SHORT).show();
+        }
     }
     private void transferToHome(int i){
         Intent intent = new Intent(this, HomeActivity.class);
